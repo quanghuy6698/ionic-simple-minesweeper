@@ -1,0 +1,7 @@
+{
+  "name": "simple-minesweeper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
