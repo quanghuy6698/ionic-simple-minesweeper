@@ -1,0 +1,81 @@
+// app title
+.app-title {
+  background-color: royalblue;
+  padding: 12px;
+  justify-content: center;
+  text-align: center;
+
+  &__label {
+    color: white;
+    font-size: 24px;
+  }
+}
+
+// content
+.content {
+  --background: #fff8dc;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+// grid
+ion-row {
+  padding: 0;
+}
+
+ion-col {
+  padding: 2px;
+}
+
+// buttons
+.flag-btn {
+  --background: #6a5acd;
+  --color: white;
+  --border-radius: 4px;
+
+  &--want-to-flag {
+    --background: #ff0000;
+  }
+}
+
+.new-game-btn {
+  --background: #3cb371;
+  --color: white;
+  --border-radius: 4px;
+}
+
+// footer
+.footer {
+  background-color: #dcdcdc;
+  padding: 12px;
+}
+
+// about app
+.about-app {
+  background-color: #f5f5f5;
+  border: 1px solid #a9a9a9;
+  border-radius: 6px;
+  padding: 4px;
+  font-size: 12px;
+  color: #a9a9a9;
+
+  &__made-with {
+    color: red;
+    justify-content: center;
+  }
+
+  &__github-source {
+    color: royalblue;
+    justify-content: center;
+  }
+
+  &__copyright {
+    justify-content: center;
+  }
+}
+// mine matrix
+.mine-matrix {
+  background-color: lightgray;
+}
