@@ -44,20 +44,6 @@ export class HomePage {
   }
 
   /**
-   * Draw cell border
-   */
-  drawCellBorder() {
-    this.context.lineWidth = 2;
-    this.context.strokeStyle = AppConstants.MATRIX_CELL_BORDER_COLOR;
-    const cellWidth = this.canvasWidth / 10;
-    for (let i = 0; i < AppConstants.MATRIX_ROW; i++) {
-      for (let j = 0; j < AppConstants.MATRIX_COL; j++) {
-        this.context.strokeRect(cellWidth * i, cellWidth * j, cellWidth, cellWidth);
-      }
-    }
-  }
-
-  /**
    * Init empty mine matrix
    */
   initMineMatrix() {
@@ -88,6 +74,20 @@ export class HomePage {
         this.mineMatrix[i][j].mineCount = 0;
         this.mineMatrix[i][j].isFlag = false;
         this.mineMatrix[i][j].isOpen = false;
+      }
+    }
+  }
+
+  /**
+   * Draw cell border
+   */
+  drawCellBorder() {
+    this.context.lineWidth = 2;
+    this.context.strokeStyle = AppConstants.MATRIX_CELL_BORDER_COLOR;
+    const cellWidth = this.canvasWidth / 10;
+    for (let i = 0; i < AppConstants.MATRIX_ROW; i++) {
+      for (let j = 0; j < AppConstants.MATRIX_COL; j++) {
+        this.context.strokeRect(cellWidth * i, cellWidth * j, cellWidth, cellWidth);
       }
     }
   }
@@ -124,6 +124,8 @@ export class HomePage {
 
   /**
    * Increase mine count around a mine
+   *
+   * @param x, y coordinate of cell
    */
   increaseAroundMine(x: number, y: number) {
     this.increaseCellMineCount(x - 1, y - 1);
@@ -138,6 +140,8 @@ export class HomePage {
 
   /**
    * Increase cell mine count
+   *
+   * @param x, y coordinate of cell
    */
   increaseCellMineCount(x: number, y: number) {
     if (this.isXYIndexInBound(x, y)) {
@@ -145,16 +149,6 @@ export class HomePage {
         this.mineMatrix[x][y].mineCount++;
       }
     }
-  }
-
-  /**
-   * Check if point is possible
-   */
-  isXYIndexInBound(x: number, y: number): boolean {
-    if (x < AppConstants.MATRIX_ROW && y < AppConstants.MATRIX_COL && x >= 0 && y >= 0) {
-      return true;
-    }
-    return false;
   }
 
   /**
@@ -172,6 +166,8 @@ export class HomePage {
 
   /**
    * Mine matrix canvas on click
+   *
+   * @param event
    */
   mineMatrixCanvasOnClick(event: any) {
     const cellWidth = this.canvasWidth / 10;
@@ -182,7 +178,21 @@ export class HomePage {
   }
 
   /**
+   * Check if point is possible
+   *
+   * @param x, y coordinate of cell
+   */
+  isXYIndexInBound(x: number, y: number): boolean {
+    if (x < AppConstants.MATRIX_ROW && y < AppConstants.MATRIX_COL && x >= 0 && y >= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Open a cell
+   *
+   * @param x, y coordinate of cell
    */
   openCell(x: number, y: number) {
     if (this.isFirstTimeOpen) {
@@ -209,6 +219,8 @@ export class HomePage {
 
   /**
    * Draw a cell content
+   *
+   * @param x, y coordinate of cell
    */
   drawCellContent(x: number, y: number) {
     this.fillCell(x, y);
@@ -224,7 +236,20 @@ export class HomePage {
   }
 
   /**
+   * Clear cell
+   *
+   * @param x, y coordinate of cell
+   */
+  clearCell(x: number, y: number) {
+    const cellWidth = this.canvasWidth / 10;
+    this.context.fillStyle = AppConstants.MATRIX_CELL_CLEAR_BG_COLOR;
+    this.context.fillRect(cellWidth * x + 2, cellWidth * y + 2, cellWidth - 4, cellWidth - 4);
+  }
+
+  /**
    * Fill cell by color
+   *
+   * @param x, y coordinate of cell
    */
   fillCell(x: number, y: number) {
     const cellWidth = this.canvasWidth / 10;
@@ -234,6 +259,8 @@ export class HomePage {
 
   /**
    * Draw mine count of a cell
+   *
+   * @param x, y coordinate of cell
    */
   drawMineCount(x: number, y: number) {
     const cellWidth = this.canvasWidth / 10;
@@ -264,6 +291,8 @@ export class HomePage {
 
   /**
    * Draw if cell is a mine
+   *
+   * @param x, y coordinate of cell
    */
   drawMine(x: number, y: number) {
     const cellWidth = this.canvasWidth / 10;
@@ -275,7 +304,18 @@ export class HomePage {
   }
 
   /**
+   * Click flag button
+   *
+   * @param x, y coordinate of cell
+   */
+  flag() {
+    this.wantToFlag = !this.wantToFlag;
+  }
+
+  /**
    * Flag cell
+   *
+   * @param x, y coordinate of cell
    */
   flagCell(x: number, y: number) {
     if (this.mineMatrix[x][y].isOpen) {
@@ -292,16 +332,9 @@ export class HomePage {
   }
 
   /**
-   * Clear cell
-   */
-  clearCell(x: number, y: number) {
-    const cellWidth = this.canvasWidth / 10;
-    this.context.fillStyle = AppConstants.MATRIX_CELL_CLEAR_BG_COLOR;
-    this.context.fillRect(cellWidth * x + 2, cellWidth * y + 2, cellWidth - 4, cellWidth - 4);
-  }
-
-  /**
    * Draw flag
+   *
+   * @param x, y coordinate of cell
    */
   drawFlag(x: number, y: number) {
     const cellWidth = this.canvasWidth / 10;
@@ -322,14 +355,9 @@ export class HomePage {
   }
 
   /**
-   * Click flag button
-   */
-  flag() {
-    this.wantToFlag = !this.wantToFlag;
-  }
-
-  /**
    * For the first time click on canvas
+   *
+   * @param x, y coordinate of cell
    */
   openFirstTime(x: number, y: number) {
     if (!this.isXYIndexInBound(x, y) || this.mineMatrix[x][y].isOpen) {
@@ -352,6 +380,8 @@ export class HomePage {
 
   /**
    * Check lose
+   *
+   * @param x, y coordinate of cell
    */
   isLose(x: number, y: number): boolean {
     if (this.wantToFlag) {
